@@ -369,6 +369,38 @@
             font-weight: 600;
         }
 
+        /* Example maps grid */
+        .map-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+        .map-card {
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--white);
+        }
+        .map-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .map-card .map-label {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-200);
+        }
+        .map-card .map-sublabel {
+            font-weight: 400;
+            color: var(--gray-500);
+            font-size: 0.75rem;
+        }
+
         /* Visual updates list */
         .updates-list {
             list-style: none;
@@ -440,6 +472,7 @@
             .header .subtitle { font-size: 0.9rem; }
             .two-panel { grid-template-columns: 1fr; }
             .cig-visual { flex-direction: column; }
+            .map-grid { grid-template-columns: 1fr; }
             table { font-size: 0.75rem; }
             th, td { padding: 0.35rem 0.4rem; }
             section h2 { font-size: 1.1rem; }
@@ -537,6 +570,31 @@
                 <p style="font-size:0.85rem; margin-bottom:0.75rem;">Two intensity groups for hail (CIG 1 and CIG 2 only). CIG 3 is not used for hail outlooks.</p>
                 <div class="key-stat">Higher CIG levels indicate greater likelihood of significant (&ge;2 inch) hail if storms occur.</div>
             </div>
+        </section>
+
+        <!-- Example Maps from SPC -->
+        <section>
+            <h2>Example Maps &mdash; New vs. Old Format</h2>
+            <p style="font-size:0.92rem; margin-bottom:1rem;">These SPC example graphics show the new format. The <strong>categorical outlook</strong> (top-left) looks similar but cleaner. The <strong>tornado, wind, and hail</strong> maps now include CIG hatching overlaid on the probability contours.</p>
+            <div class="map-grid">
+                <div class="map-card">
+                    <img src="https://www.spc.noaa.gov/exper/conditional-intensity-information/day1_cat_202503151630.png" alt="Day 1 Categorical Outlook example showing risk categories" loading="lazy">
+                    <div class="map-label">Categorical Outlook <span class="map-sublabel">&mdash; unchanged colors</span></div>
+                </div>
+                <div class="map-card">
+                    <img src="https://www.spc.noaa.gov/exper/conditional-intensity-information/day1_torn_202503151630.png" alt="Day 1 Tornado Outlook example showing CIG hatching patterns" loading="lazy">
+                    <div class="map-label">Tornado + CIG <span class="map-sublabel">&mdash; hatching = intensity</span></div>
+                </div>
+                <div class="map-card">
+                    <img src="https://www.spc.noaa.gov/exper/conditional-intensity-information/day1_wind_202503151630.png" alt="Day 1 Wind Outlook example showing CIG hatching patterns" loading="lazy">
+                    <div class="map-label">Wind + CIG <span class="map-sublabel">&mdash; 3 levels</span></div>
+                </div>
+                <div class="map-card">
+                    <img src="https://www.spc.noaa.gov/exper/conditional-intensity-information/day1_hail_202503151630.png" alt="Day 1 Hail Outlook example showing CIG hatching patterns" loading="lazy">
+                    <div class="map-label">Hail + CIG <span class="map-sublabel">&mdash; 2 levels</span></div>
+                </div>
+            </div>
+            <p style="font-size:0.82rem; color:var(--gray-500);">Source: SPC example graphics from <a href="https://www.spc.noaa.gov/exper/conditional-intensity-information/" target="_blank" rel="noopener" style="color:var(--gray-500);">spc.noaa.gov</a></p>
         </section>
 
         <!-- Decision Matrix -->
@@ -704,9 +762,9 @@
                     <div class="res-label">SPC Outlooks (Live Products)</div>
                     <div class="res-url">spc.noaa.gov/products/outlook/</div>
                 </a>
-                <a href="https://www.spc.noaa.gov/exper/conditional-intensity-information/" target="_blank" rel="noopener" class="resource-link">
-                    <div class="res-label">40-Minute Video Explanation (linked from SPC page)</div>
-                    <div class="res-url">See YouTube link on SPC Conditional Intensity page</div>
+                <a href="https://www.youtube.com/watch?v=nVFHLkbFtNQ" target="_blank" rel="noopener" class="resource-link">
+                    <div class="res-label">40-Minute Video Explanation (YouTube)</div>
+                    <div class="res-url">youtube.com/watch?v=nVFHLkbFtNQ</div>
                 </a>
             </div>
             <p style="font-size:0.82rem; color:var(--gray-500); margin-top:0.75rem;">Data downloads available from SPC: GeoJSON, KML, GRIB2</p>
