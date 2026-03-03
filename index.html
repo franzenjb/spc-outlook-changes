@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPC Convective Outlook Changes — Conditional Intensity Groups</title>
+    <meta name="description" content="Educational guide to NOAA Storm Prediction Center's new Conditional Intensity Groups (CIG) added to Day 1-3 convective outlooks, effective March 3, 2026.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #0f1b2d;
+            --navy-light: #1a2940;
+            --white: #ffffff;
+            --gray-50: #f8f9fa;
+            --gray-100: #f0f1f3;
+            --gray-200: #e2e4e8;
+            --gray-300: #c8cbd0;
+            --gray-500: #6b7280;
+            --gray-700: #374151;
+            --gray-900: #111827;
+            --tornado: #dc2626;
+            --tornado-bg: #fef2f2;
+            --tornado-border: #fecaca;
+            --wind: #2563eb;
+            --wind-bg: #eff6ff;
+            --wind-border: #bfdbfe;
+            --hail: #0d9488;
+            --hail-bg: #f0fdfa;
+            --hail-border: #99f6e4;
+            --spc-tstm: #c1e9c1;
+            --spc-mrgl: #66b266;
+            --spc-slgt: #ffe066;
+            --spc-enh: #ffa940;
+            --spc-mdt: #ff4d4d;
+            --spc-high: #ff66ff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--gray-900);
+            background: var(--white);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            padding: 2.5rem 1.5rem 2rem;
+            text-align: center;
+        }
+        .header-source {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 0.75rem;
+        }
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+        .header .subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.85;
+        }
+        .header .effective-date {
+            display: inline-block;
+            margin-top: 0.75rem;
+            background: rgba(255,255,255,0.15);
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Main content */
+        .content {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 1.25rem 3rem;
+        }
+
+        /* Section spacing */
+        section {
+            margin-top: 2.5rem;
+        }
+        section h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        /* TL;DR box */
+        .tldr {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-left: 4px solid var(--navy);
+            border-radius: 6px;
+            padding: 1.25rem 1.5rem;
+            margin-top: 2rem;
+        }
+        .tldr h2 {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        .tldr ul {
+            list-style: none;
+            padding: 0;
+        }
+        .tldr li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .tldr li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--navy);
+            font-weight: 700;
+        }
+        .tldr .first-product {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--gray-200);
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        /* CIG Visual Explanation */
+        .cig-visual {
+            display: flex;
+            gap: 1rem;
+            margin: 1.25rem 0;
+            flex-wrap: wrap;
+        }
+        .cig-swatch {
+            flex: 1;
+            min-width: 140px;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid var(--gray-200);
+        }
+        .cig-swatch .pattern-box {
+            width: 100%;
+            height: 48px;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--gray-300);
+        }
+        .pattern-none {
+            background: var(--gray-100);
+        }
+        .pattern-cig1 {
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 6px,
+                rgba(0,0,0,0.12) 6px,
+                rgba(0,0,0,0.12) 8px
+            ), var(--gray-100);
+        }
+        .pattern-cig2 {
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 4px,
+                rgba(0,0,0,0.18) 4px,
+                rgba(0,0,0,0.18) 6px
+            ), var(--gray-100);
+        }
+        .pattern-cig3 {
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.25) 2px,
+                rgba(0,0,0,0.25) 5px
+            ), var(--gray-100);
+        }
+        .cig-swatch .label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+        .cig-swatch .desc {
+            font-size: 0.78rem;
+            color: var(--gray-500);
+        }
+
+        /* Hazard cards */
+        .hazard-card {
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid;
+        }
+        .hazard-card.tornado {
+            background: var(--tornado-bg);
+            border-color: var(--tornado-border);
+        }
+        .hazard-card.wind {
+            background: var(--wind-bg);
+            border-color: var(--wind-border);
+        }
+        .hazard-card.hail {
+            background: var(--hail-bg);
+            border-color: var(--hail-border);
+        }
+        .hazard-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .hazard-card.tornado h3 { color: var(--tornado); }
+        .hazard-card.wind h3 { color: var(--wind); }
+        .hazard-card.hail h3 { color: var(--hail); }
+        .hazard-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            color: var(--white);
+        }
+        .hazard-card.tornado .hazard-badge { background: var(--tornado); }
+        .hazard-card.wind .hazard-badge { background: var(--wind); }
+        .hazard-card.hail .hazard-badge { background: var(--hail); }
+
+        .key-stat {
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.6rem 0.75rem;
+            border-radius: 4px;
+            margin-top: 0.75rem;
+        }
+        .hazard-card.tornado .key-stat {
+            background: rgba(220,38,38,0.08);
+            color: #991b1b;
+        }
+        .hazard-card.wind .key-stat {
+            background: rgba(37,99,235,0.08);
+            color: #1e40af;
+        }
+        .hazard-card.hail .key-stat {
+            background: rgba(13,148,136,0.08);
+            color: #115e59;
+        }
+
+        /* Tables */
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0.75rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+        th, td {
+            padding: 0.45rem 0.6rem;
+            text-align: center;
+            border: 1px solid var(--gray-200);
+        }
+        th {
+            background: var(--gray-50);
+            font-weight: 600;
+            font-size: 0.78rem;
+            white-space: nowrap;
+        }
+        td:first-child, th:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+
+        /* Risk level cell colors */
+        .risk-mrgl { background: var(--spc-mrgl); color: #fff; font-weight: 700; }
+        .risk-slgt { background: var(--spc-slgt); color: #333; font-weight: 700; }
+        .risk-enh { background: var(--spc-enh); color: #fff; font-weight: 700; }
+        .risk-mdt { background: var(--spc-mdt); color: #fff; font-weight: 700; }
+        .risk-high { background: var(--spc-high); color: #fff; font-weight: 700; }
+        .risk-na { background: var(--gray-100); color: var(--gray-500); font-style: italic; }
+
+        /* Risk category legend */
+        .risk-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        .risk-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            border: 1px solid var(--gray-200);
+        }
+        .risk-chip .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* Two-panel visual */
+        .two-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+        .panel {
+            border-radius: 8px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .panel-left {
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            border: 1px solid #c7d2fe;
+        }
+        .panel-right {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 1px solid #bbf7d0;
+        }
+        .panel .panel-q {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+        .panel .panel-a {
+            font-size: 0.82rem;
+            color: var(--gray-500);
+        }
+        .panel .panel-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.4rem;
+        }
+        .together-box {
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Visual updates list */
+        .updates-list {
+            list-style: none;
+            padding: 0;
+        }
+        .updates-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--gray-100);
+            font-size: 0.92rem;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+        .updates-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        /* Resources */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+        .resource-link {
+            display: block;
+            padding: 0.6rem 0.75rem;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--gray-900);
+            font-size: 0.88rem;
+            transition: border-color 0.15s;
+        }
+        .resource-link:hover {
+            border-color: var(--navy);
+        }
+        .resource-link .res-label {
+            font-weight: 600;
+        }
+        .resource-link .res-url {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            word-break: break-all;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            border-top: 1px solid var(--gray-200);
+            margin-top: 2rem;
+        }
+
+        /* Highlight row */
+        .highlight-row td {
+            background: rgba(255, 237, 213, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.35rem; }
+            .header .subtitle { font-size: 0.9rem; }
+            .two-panel { grid-template-columns: 1fr; }
+            .cig-visual { flex-direction: column; }
+            table { font-size: 0.75rem; }
+            th, td { padding: 0.35rem 0.4rem; }
+            section h2 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-source">NOAA Storm Prediction Center</div>
+        <h1>SPC Convective Outlook Changes</h1>
+        <div class="subtitle">Conditional Intensity Groups (CIG)</div>
+        <div class="effective-date">Effective March 3, 2026</div>
+    </header>
+
+    <main class="content">
+
+        <!-- TL;DR -->
+        <div class="tldr">
+            <h2>TL;DR</h2>
+            <ul>
+                <li>SPC outlooks now answer <strong>two questions</strong>: "How likely?" AND "How intense?"</li>
+                <li>New <strong>hatch patterns</strong> on tornado, wind, and hail graphics show expected severity</li>
+                <li>Risk categories (Marginal &rarr; High) are <strong>unchanged</strong></li>
+                <li>Three CIG levels for tornado &amp; wind; two for hail</li>
+            </ul>
+            <div class="first-product">First product: 1630Z Day 1 Outlook, March 3, 2026</div>
+        </div>
+
+        <!-- What's New -->
+        <section>
+            <h2>What's New &mdash; Conditional Intensity Groups</h2>
+            <p style="font-size:0.92rem; margin-bottom:1rem;">CIG levels use <strong>diagonal hatch patterns</strong> (not colors) overlaid on the existing probability areas. Higher CIG = denser hatching = more intense severe weather expected <em>if</em> storms occur.</p>
+
+            <div class="cig-visual">
+                <div class="cig-swatch">
+                    <div class="pattern-box pattern-none"></div>
+                    <div class="label">No CIG</div>
+                    <div class="desc">Below threshold</div>
+                </div>
+                <div class="cig-swatch">
+                    <div class="pattern-box pattern-cig1"></div>
+                    <div class="label">CIG 1</div>
+                    <div class="desc">Lower intensity</div>
+                </div>
+                <div class="cig-swatch">
+                    <div class="pattern-box pattern-cig2"></div>
+                    <div class="label">CIG 2</div>
+                    <div class="desc">Moderate intensity</div>
+                </div>
+                <div class="cig-swatch">
+                    <div class="pattern-box pattern-cig3"></div>
+                    <div class="label">CIG 3</div>
+                    <div class="desc">Higher intensity</div>
+                </div>
+            </div>
+
+            <!-- Tornado Card -->
+            <div class="hazard-card tornado">
+                <h3>Tornado <span class="hazard-badge">3 CIG Levels</span></h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>EF Scale</th>
+                                <th>No CIG</th>
+                                <th>CIG 1</th>
+                                <th>CIG 2</th>
+                                <th>CIG 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>EF0</td><td>61%</td><td>42%</td><td>36%</td><td>31%</td></tr>
+                            <tr><td>EF1</td><td>32%</td><td>37%</td><td>33%</td><td>28%</td></tr>
+                            <tr><td>EF2</td><td>6%</td><td>14%</td><td>18%</td><td>22%</td></tr>
+                            <tr><td>EF3</td><td>1%</td><td>5%</td><td>9%</td><td>14%</td></tr>
+                            <tr><td>EF4+</td><td>0.1%</td><td>1%</td><td>3%</td><td>5%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="key-stat">EF2+ tornadoes jump from 7% (no CIG) &rarr; 20% (CIG 1) &rarr; 30% (CIG 2) &rarr; ~41% (CIG 3)</div>
+            </div>
+
+            <!-- Wind Card -->
+            <div class="hazard-card wind">
+                <h3>Wind <span class="hazard-badge">3 CIG Levels</span></h3>
+                <p style="font-size:0.85rem; margin-bottom:0.75rem;">Three intensity groups for damaging winds. New 75% and 90% probability thresholds added for wind outlooks.</p>
+                <div class="key-stat">Higher CIG levels indicate greater likelihood of significant (&ge;75 mph) damaging winds if storms occur.</div>
+            </div>
+
+            <!-- Hail Card -->
+            <div class="hazard-card hail">
+                <h3>Hail <span class="hazard-badge">2 CIG Levels</span></h3>
+                <p style="font-size:0.85rem; margin-bottom:0.75rem;">Two intensity groups for hail (CIG 1 and CIG 2 only). CIG 3 is not used for hail outlooks.</p>
+                <div class="key-stat">Higher CIG levels indicate greater likelihood of significant (&ge;2 inch) hail if storms occur.</div>
+            </div>
+        </section>
+
+        <!-- Decision Matrix -->
+        <section>
+            <h2>The Decision Matrix &mdash; Probability &times; CIG &rarr; Risk</h2>
+            <p style="font-size:0.92rem; margin-bottom:1.25rem;">This is the core operational change. The <strong>combination</strong> of probability and CIG level now determines the categorical risk level. Same probability can yield different risk categories depending on expected intensity.</p>
+
+            <!-- Tornado Matrix -->
+            <div class="hazard-card tornado">
+                <h3>Tornado Decision Matrix</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Probability</th>
+                                <th>&lt;CIG 1</th>
+                                <th>CIG 1</th>
+                                <th>CIG 2</th>
+                                <th>CIG 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2%</td><td class="risk-mrgl">MRGL</td><td class="risk-mrgl">MRGL</td><td class="risk-slgt">SLGT</td><td class="risk-na">N/A</td></tr>
+                            <tr><td>5%</td><td class="risk-slgt">SLGT</td><td class="risk-slgt">SLGT</td><td class="risk-enh">ENH</td><td class="risk-na">N/A</td></tr>
+                            <tr class="highlight-row"><td>10%</td><td class="risk-slgt">SLGT</td><td class="risk-enh">ENH</td><td class="risk-enh">ENH</td><td class="risk-enh">ENH</td></tr>
+                            <tr><td>15%</td><td class="risk-enh">ENH</td><td class="risk-enh">ENH</td><td class="risk-mdt">MDT</td><td class="risk-mdt">MDT</td></tr>
+                            <tr><td>30%</td><td class="risk-enh">ENH</td><td class="risk-mdt">MDT</td><td class="risk-high">HIGH</td><td class="risk-high">HIGH</td></tr>
+                            <tr><td>45%</td><td class="risk-enh">ENH</td><td class="risk-mdt">MDT</td><td class="risk-high">HIGH</td><td class="risk-high">HIGH</td></tr>
+                            <tr><td>60%</td><td class="risk-enh">ENH</td><td class="risk-high">HIGH</td><td class="risk-high">HIGH</td><td class="risk-high">HIGH</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="key-stat">Example: 10% tornado probability + CIG 1 = Enhanced, but 10% + no CIG = only Slight</div>
+            </div>
+
+            <!-- Wind Matrix -->
+            <div class="hazard-card wind">
+                <h3>Wind Decision Matrix</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Probability</th>
+                                <th>&lt;CIG 1</th>
+                                <th>CIG 1</th>
+                                <th>CIG 2</th>
+                                <th>CIG 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>5%</td><td class="risk-mrgl">MRGL</td><td class="risk-mrgl">MRGL</td><td class="risk-slgt">SLGT</td><td class="risk-na">N/A</td></tr>
+                            <tr><td>15%</td><td class="risk-slgt">SLGT</td><td class="risk-slgt">SLGT</td><td class="risk-enh">ENH</td><td class="risk-na">N/A</td></tr>
+                            <tr><td>30%</td><td class="risk-slgt">SLGT</td><td class="risk-enh">ENH</td><td class="risk-enh">ENH</td><td class="risk-na">N/A</td></tr>
+                            <tr><td>45%</td><td class="risk-enh">ENH</td><td class="risk-enh">ENH</td><td class="risk-mdt">MDT</td><td class="risk-high">HIGH</td></tr>
+                            <tr><td>60%</td><td class="risk-enh">ENH</td><td class="risk-mdt">MDT</td><td class="risk-high">HIGH</td><td class="risk-high">HIGH</td></tr>
+                            <tr><td>75%</td><td class="risk-enh">ENH</td><td class="risk-mdt">MDT</td><td class="risk-high">HIGH</td><td class="risk-high">HIGH</td></tr>
+                            <tr><td>90%</td><td class="risk-enh">ENH</td><td class="risk-mdt">MDT</td><td class="risk-high">HIGH</td><td class="risk-high">HIGH</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="key-stat">New 75% and 90% probability thresholds added specifically for wind outlooks</div>
+            </div>
+
+            <!-- Hail Matrix -->
+            <div class="hazard-card hail">
+                <h3>Hail Decision Matrix</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Probability</th>
+                                <th>&lt;CIG 1</th>
+                                <th>CIG 1</th>
+                                <th>CIG 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>5%</td><td class="risk-mrgl">MRGL</td><td class="risk-mrgl">MRGL</td><td class="risk-slgt">SLGT</td></tr>
+                            <tr><td>15%</td><td class="risk-slgt">SLGT</td><td class="risk-slgt">SLGT</td><td class="risk-enh">ENH</td></tr>
+                            <tr><td>30%</td><td class="risk-slgt">SLGT</td><td class="risk-enh">ENH</td><td class="risk-enh">ENH</td></tr>
+                            <tr><td>45%</td><td class="risk-enh">ENH</td><td class="risk-enh">ENH</td><td class="risk-mdt">MDT</td></tr>
+                            <tr><td>60%</td><td class="risk-enh">ENH</td><td class="risk-mdt">MDT</td><td class="risk-mdt">MDT</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="key-stat">CIG 3 is not used for hail — maximum of 2 intensity levels</div>
+            </div>
+        </section>
+
+        <!-- What Stays the Same -->
+        <section>
+            <h2>What Stays the Same</h2>
+            <p style="font-size:0.92rem; margin-bottom:1rem;">The six risk categories and their colors are <strong>unchanged</strong>. CIG adds an intensity dimension — it does not replace the existing system.</p>
+            <div class="risk-legend">
+                <span class="risk-chip"><span class="dot" style="background:#c1e9c1;border:1px solid #8fcc8f;"></span> TSTM</span>
+                <span class="risk-chip"><span class="dot" style="background:#66b266;"></span> MRGL</span>
+                <span class="risk-chip"><span class="dot" style="background:#ffe066;border:1px solid #e6c84d;"></span> SLGT</span>
+                <span class="risk-chip"><span class="dot" style="background:#ffa940;"></span> ENH</span>
+                <span class="risk-chip"><span class="dot" style="background:#ff4d4d;"></span> MDT</span>
+                <span class="risk-chip"><span class="dot" style="background:#ff66ff;"></span> HIGH</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Color</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>TSTM</td><td><span style="display:inline-block;width:20px;height:14px;background:#c1e9c1;border:1px solid #8fcc8f;border-radius:2px;vertical-align:middle;"></span> Light Green</td><td style="text-align:left;">General thunderstorm risk</td></tr>
+                        <tr><td>MRGL</td><td><span style="display:inline-block;width:20px;height:14px;background:#66b266;border-radius:2px;vertical-align:middle;"></span> Dark Green</td><td style="text-align:left;">Marginal risk of severe</td></tr>
+                        <tr><td>SLGT</td><td><span style="display:inline-block;width:20px;height:14px;background:#ffe066;border:1px solid #e6c84d;border-radius:2px;vertical-align:middle;"></span> Yellow</td><td style="text-align:left;">Slight risk — organized severe possible</td></tr>
+                        <tr><td>ENH</td><td><span style="display:inline-block;width:20px;height:14px;background:#ffa940;border-radius:2px;vertical-align:middle;"></span> Orange</td><td style="text-align:left;">Enhanced risk — numerous severe</td></tr>
+                        <tr><td>MDT</td><td><span style="display:inline-block;width:20px;height:14px;background:#ff4d4d;border-radius:2px;vertical-align:middle;"></span> Red</td><td style="text-align:left;">Moderate risk — widespread severe</td></tr>
+                        <tr><td>HIGH</td><td><span style="display:inline-block;width:20px;height:14px;background:#ff66ff;border-radius:2px;vertical-align:middle;"></span> Magenta</td><td style="text-align:left;">High risk — severe outbreak expected</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- How to Read -->
+        <section>
+            <h2>How to Read the New Outlooks</h2>
+            <div class="two-panel">
+                <div class="panel panel-left">
+                    <div class="panel-icon">&#x1F4CA;</div>
+                    <div class="panel-q">"What are the chances?"</div>
+                    <div class="panel-a">SPC probability areas &rarr; Risk category (colors)</div>
+                </div>
+                <div class="panel panel-right">
+                    <div class="panel-icon">&#x26A0;&#xFE0F;</div>
+                    <div class="panel-q">"How bad could it be?"</div>
+                    <div class="panel-a">Conditional Intensity &rarr; CIG level (hatching)</div>
+                </div>
+            </div>
+            <div class="together-box">Together: Complete severe weather picture &mdash; likelihood + intensity</div>
+        </section>
+
+        <!-- Visual Updates -->
+        <section>
+            <h2>Other Visual Updates</h2>
+            <ul class="updates-list">
+                <li>Cleaner categorical outlook map design</li>
+                <li>Text labels moved off map into separate legend</li>
+                <li>Same impact communication, improved readability</li>
+                <li>Hatch patterns are the only new visual element on the maps themselves</li>
+            </ul>
+        </section>
+
+        <!-- Resources -->
+        <section>
+            <h2>Resources</h2>
+            <div class="resources-grid">
+                <a href="https://www.spc.noaa.gov/exper/conditional-intensity-information/" target="_blank" rel="noopener" class="resource-link">
+                    <div class="res-label">SPC Conditional Intensity Information</div>
+                    <div class="res-url">spc.noaa.gov/exper/conditional-intensity-information/</div>
+                </a>
+                <a href="https://www.weather.gov/news/262402-spc" target="_blank" rel="noopener" class="resource-link">
+                    <div class="res-label">Weather.gov Announcement</div>
+                    <div class="res-url">weather.gov/news/262402-spc</div>
+                </a>
+                <a href="https://www.spc.noaa.gov/products/outlook/" target="_blank" rel="noopener" class="resource-link">
+                    <div class="res-label">SPC Outlooks (Live Products)</div>
+                    <div class="res-url">spc.noaa.gov/products/outlook/</div>
+                </a>
+                <a href="https://www.spc.noaa.gov/exper/conditional-intensity-information/" target="_blank" rel="noopener" class="resource-link">
+                    <div class="res-label">40-Minute Video Explanation (linked from SPC page)</div>
+                    <div class="res-url">See YouTube link on SPC Conditional Intensity page</div>
+                </a>
+            </div>
+            <p style="font-size:0.82rem; color:var(--gray-500); margin-top:0.75rem;">Data downloads available from SPC: GeoJSON, KML, GRIB2</p>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        Source: NOAA Storm Prediction Center &bull; Educational reference only &bull; Not an official NWS product
+    </footer>
+
+</body>
+</html>
