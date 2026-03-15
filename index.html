@@ -451,6 +451,30 @@
             word-break: break-all;
         }
 
+        /* Note callout */
+        .note-callout {
+            background: var(--wind-bg);
+            border: 1px solid var(--wind-border);
+            border-left: 4px solid var(--wind);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.88rem;
+        }
+        .note-callout .note-label {
+            font-weight: 700;
+            color: var(--wind);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.35rem;
+        }
+        .note-callout .note-source {
+            font-size: 0.78rem;
+            color: var(--gray-500);
+            margin-top: 0.5rem;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -562,6 +586,12 @@
                 <h3>Wind <span class="hazard-badge">3 CIG Levels</span></h3>
                 <p style="font-size:0.85rem; margin-bottom:0.75rem;">Three intensity groups for damaging winds. New 75% and 90% probability thresholds added for wind outlooks.</p>
                 <div class="key-stat">Higher CIG levels indicate greater likelihood of significant (&ge;75 mph) damaging winds if storms occur.</div>
+            </div>
+
+            <div class="note-callout">
+                <div class="note-label">Note from SPC</div>
+                <p>SPC wind forecasts are <strong>only for wind associated with thunderstorms</strong>. This is why SPC outlooks may exclude areas expecting non-thunderstorm wind events (e.g., gradient winds in western regions).</p>
+                <div class="note-source">&mdash; Dr. Patrick Marsh, Chief, Science &amp; Support Branch, NOAA-NWS Storm Prediction Center (March 6, 2026)</div>
             </div>
 
             <!-- Hail Card -->
